@@ -152,7 +152,7 @@ class TimeGridHeader extends React.Component {
     }
 
     const groupedEvents = resources.groupEvents(events)
-
+    console.log('scrollRef', scrollRef) // eslint-disable-line
     return (
       <div
         style={style}

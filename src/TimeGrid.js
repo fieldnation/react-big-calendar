@@ -65,7 +65,7 @@ export default class TimeGrid extends Component {
 
     this.state = { gutterWidth: undefined, isOverflowing: null }
 
-    this.scrollRef = null;
+    this.scrollRef = null
   }
 
   componentWillMount() {
@@ -94,7 +94,7 @@ export default class TimeGrid extends Component {
     raf.cancel(this.rafHandle)
     this.rafHandle = raf(this.checkOverflow)
   }
-  
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
 
@@ -145,7 +145,7 @@ export default class TimeGrid extends Component {
     let { min, max, components, accessors, localizer } = this.props
 
     const resources = this.memoizedResources(this.props.resources, accessors)
-    const groupedEvents = resources.groupEvents(events) 
+    const groupedEvents = resources.groupEvents(events)
 
     return resources.map(([id, resource], i) =>
       range.map((date, jj) => {
@@ -176,10 +176,11 @@ export default class TimeGrid extends Component {
     )
   }
 
-  setScrollRef = (el) => {
-    this.scrollRef = el;
+  setScrollRef = el => {
+    console.log('el', el) // eslint-disable-line
+    this.scrollRef = el
   }
-  
+
   render() {
     let {
       events,
@@ -320,5 +321,7 @@ export default class TimeGrid extends Component {
     }
   }
 
-  memoizedResources = memoize((resources, accessors) => Resources(resources, accessors))
+  memoizedResources = memoize((resources, accessors) =>
+    Resources(resources, accessors)
+  )
 }
