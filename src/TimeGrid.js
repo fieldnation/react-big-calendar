@@ -85,8 +85,8 @@ export default class TimeGrid extends Component {
   }
 
   handleScroll = e => {
-    if (this.scrollRef.current) {
-      this.scrollRef.current.scrollLeft = e.target.scrollLeft
+    if (this.scrollRef) {
+      this.scrollRef.scrollLeft = e.target.scrollLeft
     }
   }
 
@@ -177,7 +177,6 @@ export default class TimeGrid extends Component {
   }
 
   setScrollRef = el => {
-    console.log('el', el) // eslint-disable-line
     this.scrollRef = el
   }
 
