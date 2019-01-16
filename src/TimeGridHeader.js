@@ -152,7 +152,6 @@ class TimeGridHeader extends React.Component {
     }
 
     const groupedEvents = resources.groupEvents(events)
-
     return (
       <div
         style={style}

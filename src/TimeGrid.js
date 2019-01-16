@@ -65,7 +65,7 @@ export default class TimeGrid extends Component {
 
     this.state = { gutterWidth: undefined, isOverflowing: null }
 
-    this.scrollRef = React.createRef()
+    this.scrollRef = null
   }
 
   componentWillMount() {
@@ -85,8 +85,8 @@ export default class TimeGrid extends Component {
   }
 
   handleScroll = e => {
-    if (this.scrollRef.current) {
-      this.scrollRef.current.scrollLeft = e.target.scrollLeft
+    if (this.scrollRef) {
+      this.scrollRef.scrollLeft = e.target.scrollLeft
     }
   }
 
@@ -94,7 +94,7 @@ export default class TimeGrid extends Component {
     raf.cancel(this.rafHandle)
     this.rafHandle = raf(this.checkOverflow)
   }
-  
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
 
@@ -145,7 +145,7 @@ export default class TimeGrid extends Component {
     let { min, max, components, accessors, localizer } = this.props
 
     const resources = this.memoizedResources(this.props.resources, accessors)
-    const groupedEvents = resources.groupEvents(events) 
+    const groupedEvents = resources.groupEvents(events)
 
     return resources.map(([id, resource], i) =>
       range.map((date, jj) => {
@@ -174,6 +174,10 @@ export default class TimeGrid extends Component {
         )
       })
     )
+  }
+
+  setScrollRef = el => {
+    this.scrollRef = el
   }
 
   render() {
@@ -239,7 +243,7 @@ export default class TimeGrid extends Component {
           accessors={accessors}
           getters={getters}
           components={components}
-          scrollRef={this.scrollRef}
+          scrollRef={this.setScrollRef}
           isOverflowing={this.state.isOverflowing}
           longPressThreshold={longPressThreshold}
           onSelectSlot={this.handleSelectAllDaySlot}
@@ -316,5 +320,7 @@ export default class TimeGrid extends Component {
     }
   }
 
-  memoizedResources = memoize((resources, accessors) => Resources(resources, accessors))
+  memoizedResources = memoize((resources, accessors) =>
+    Resources(resources, accessors)
+  )
 }
